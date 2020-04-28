@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>首页</title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link href="css/index.min.css">
-  <script src="js/index.min.js"></script>
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/index.min.css">
+  <link rel="stylesheet" href="./css/common/swiper.min.css">
+
 </head>
+
 <body>
-  <div id="ddv">
-    我是首页
-    <a href="pages/detail.html">详情</a>
-    <a href="pages/category.html">分类</a>
+  <div>
+    <div class="home">首页</div>
+    <a href="pages/detail.html">详情1</a>
+    <a href="pages/category.html">分类2</a>
+    <a href="pages/staticPages/about.html">关于</a>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">slider1</div>
+        <div class="swiper-slide">slider2</div>
+        <div class="swiper-slide">slider3</div>
+      </div>
+    </div>
   </div>
 </body>
+<script data-main="./js/modules/home.min.js" src="./js/lib/require.js"></script>
 </html>

@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')()
+var _$ = require('gulp-load-plugins')()
 // var concat = require('gulp-concat');
 // var uglify = require('gulp-uglify');
 // var rename = require('gulp-rename');
@@ -9,72 +9,75 @@ var $ = require('gulp-load-plugins')()
 // var livereload = require('gulp-livereload');
 // var connect = require('gulp-connect');
 const sass = require('gulp-sass')
-gulp.task('sass',function(){
-  return gulp.src('styles/index.scss')
-  .pipe(sass())
-  .pipe(gulp.dest('dist/css'))
-  .pipe($.cleanCss({ compatibility: 'ie8' }))//压缩css文件
-  .pipe($.rename({ suffix: '.min' }))//重命名
-  .pipe(gulp.dest('dist/css'))
-})
+
 const config = {
   root: 'dist',
   port: 8080,
   livereload: true,
 }
-gulp.task('images', function () {
-  return gulp.src('iamges/**/*')//找到目标源文件,所有文件，包括文件夹
-    .pipe(gulp.dest('dist/images'))
-    // .pipe($.connect.reload())
-});
-//gulp任务异步文件流，不写return就是同步文件流
-//注册合并压缩JS的任务
-gulp.task('js', function () {
-  return gulp.src('js/*.js')//找到目标源文件，将数据读取到gulp内存
-    .pipe($.concat('build.js'))//合并文件
-    .pipe(gulp.dest('dist/js'))//临时输出文件到本地
-    .pipe($.uglify())//压缩文件
-    .pipe($.rename({ suffix: '.min' }))//重命名
-    .pipe(gulp.dest('dist/js'))
-    .pipe($.connect.reload())
-});
-// //注册转换less文件为css文件，并压缩的任务
-// gulp.task('less', function () {
-//   return gulp.src('src/less/*.less')
-//     .pipe($.less())
-//     .pipe(gulp.dest('src/css'))
-//     .pipe($.connect.reload())
-// });
-//注册合并压缩css文件
-
-// gulp.task('css', function () {
-//   return gulp.src('src/css/*.css')
-//     // .pipe($.concat('build.css'))//合并src/css/下的所有css文件并命名为build.css
-//     .pipe($.rename({ suffix: '.min' }))//重命名
-//     .pipe($.cleanCss({ compatibility: 'ie8' }))//压缩css文件
-//     .pipe(gulp.dest('dist/css'))//输出文件到dist目录下css文件夹
-//     .pipe($.connect.reload())
-// })
-//注册压缩html文件
-gulp.task('html', function () {
-  return gulp.src('src/index.html')
-    .pipe($.htmlmin({ collapseWhitespace: true }))
+//注册压缩首页文件
+gulp.task('index', function () {
+  return gulp.src('index.html')
+    .pipe(_$.htmlmin({ collapseWhitespace: true }))
     .pipe(gulp.dest('dist'))
-    // .pipe($.livereload())//实时刷新
-    .pipe($.connect.reload())
+    .pipe(_$.connect.reload())
 });
 gulp.task('pages', function () {
-  return gulp.src('src/pages/**')
-    .pipe($.htmlmin({ collapseWhitespace: true }))
+  return gulp.src('pages/**')
+    .pipe(_$.htmlmin({ collapseWhitespace: true }))
     .pipe(gulp.dest('dist/pages'))
-    // .pipe($.livereload())//实时刷新
-    .pipe($.connect.reload())
+    .pipe(_$.connect.reload())
+})
+//图片文件夹
+gulp.task('images', function () {
+  return gulp.src('images/**/*')//找到目标源文件,所有文件，包括文件夹
+    .pipe(gulp.dest('dist/images'))
+    .pipe(_$.connect.reload())
+});
+//注册合并压缩css文件
+gulp.task('sass',function(){
+  return gulp.src('styles/*.scss')
+  .pipe(sass())
+  .pipe(gulp.dest('dist/css'))
+  .pipe(_$.cleanCss({ compatibility: 'ie8' }))//压缩css文件
+  .pipe(_$.rename({ suffix: '.min' }))//重命名
+  .pipe(gulp.dest('dist/css'))
+  .pipe(_$.connect.reload())
 })
 
+gulp.task('copy-css', function () {
+  return gulp.src('styles/common/*.css')
+    // .pipe(_$.concat('build.css'))//合并src/css/下的所有css文件并命名为build.css
+    .pipe(gulp.dest('dist/css/common'))//输出文件到dist目录下css文件夹
+    // .pipe(_$.rename({ suffix: '.min' }))//重命名
+    // .pipe(_$.cleanCss({ compatibility: 'ie8' }))//压缩css文件
+    // .pipe(gulp.dest('dist/css'))//输出文件到dist目录下css文件夹
+    .pipe(_$.connect.reload())
+})
+
+//gulp任务异步文件流，不写return就是同步文件流
+//注册合并压缩JS的任务
+gulp.task('copy-js', function () {
+  return gulp.src('javascript/lib/*.js')//找到目标源文件，将数据读取到gulp内存
+    .pipe(gulp.dest('dist/js/lib'))//临时输出文件到本地
+    // .pipe(_$.uglify())//压缩文件
+    // .pipe(_$.rename({ suffix: '.min' }))//重命名
+    // .pipe(gulp.dest('dist/js'))
+    .pipe(_$.connect.reload())
+});
+
+gulp.task('uglify-js', function () {
+  return gulp.src('javascript/modules/*.js')//找到目标源文件，将数据读取到gulp内存
+    .pipe(gulp.dest('dist/js/modules'))//临时输出文件到本地
+    .pipe(_$.uglify())//压缩文件
+    .pipe(_$.rename({ suffix: '.min' }))//重命名
+    .pipe(gulp.dest('dist/js/modules'))
+    .pipe(_$.connect.reload())
+});
 
 
 //gulp 3.9.1版本
-gulp.task('build', ['js', 'sass', 'css', 'html', 'pages'], function () {
+gulp.task('build', ['index', 'pages', 'images', 'sass','copy-css','copy-js','uglify-js'], function () {
   console.log('打包完成')
 });
 //gulp 4+ 需要调用gulp.series()将任务序列化
@@ -89,13 +92,15 @@ gulp.task('build', ['js', 'sass', 'css', 'html', 'pages'], function () {
 //   gulp.watch('src/css/*.css', gulp.series('css'));
 // });
 gulp.task('watch', function () {
-  gulp.watch('src/js/*.js', ['js']);
-  gulp.watch('src/less/*.less', ['less']);
-  gulp.watch('src/css/*.css', ['css']);
-  gulp.watch('index.html', ['html']);
-  gulp.watch('src/pages/*.html', ['pages']);
+  gulp.watch('index.html', ['index']);
+  gulp.watch('pages/**', ['pages']);
+  gulp.watch('images/**/*', ['images']);
+  gulp.watch('styles/*.scss', ['sass']);
+  gulp.watch('styles/common/*.css', ['copy-css']);
+  gulp.watch('javascript/lib/*.js', ['copy-js']);
+  gulp.watch('javascript/modules/*.js', ['uglify-js']);
 });
 gulp.task('server', () => {
-  $.connect.server(config)
+  _$.connect.server(config)
 });
 gulp.task('default', ['watch', 'server'])
