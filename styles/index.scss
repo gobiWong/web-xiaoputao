@@ -1,11 +1,199 @@
-// $color:#22ee22;
-// div{
-//   color: $color;
-//   a{
-//     font-size: 30px;
+$themColor:rgb(81, 26, 235);
+
+.w {
+  width: 1240px;
+  margin: 0 auto;
+
+}
+
+.active {
+  border-bottom: 2px solid $themColor;
+  color: $themColor;
+}
+
+// 头部
+.header {
+  height: 116px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ddd;
+
+  .header_top {
+    .top {
+      height: 72px;
+
+      .welcom {}
+
+      .phone {}
+    }
+
+    .header_nav {
+      display: flex;
+      height: 44px;
+      line-height: 43px;
+      box-sizing: border-box;
+
+      .logo {
+        width: 249px;
+        height: 100%;
+        background-color: #eee;
+      }
+
+      .tab {
+        flex: 1;
+        display: flex;
+        justify-content: flex-start;
+
+        .tab_item {
+          margin-right: 60px;
+        }
+      }
+
+      .login {
+
+        .login_go {
+          width: 84px;
+          height: 35px;
+          background-color: #fff;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+// 主播榜单
+.player {
+  background-color: #eee;
+  // height: 600px;
+
+  h3 {}
+
+  .top1 {
+    background: url(../images/index/topbg.png) no-repeat center;
+  }
+
+  .top1,
+  .top2,
+  .top3 {
+
+    display: flex;
+    height: 143px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 143px;
+
+    .item {
+      flex: 1;
+      height: 100%;
+
+      .title {
+        color: rgba(102, 102, 102, 1);
+      }
+
+      .yuan {
+        font-weight: 600;
+      }
+    }
+
+    .tx {
+      span {
+        display: inline-block;
+        margin: 0 10px;
+      }
+    }
+  }
+}
+
+// 土豪榜单
+// 新入驻
+.xinren {
+  // height: 600px;
+  background-color: aquamarine;
+
+  .items {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .item {
+      background: url(../images/index/qybg.png) no-repeat center;
+      width: 31%;
+      margin-bottom: 2%;
+      height: 247px;
+      background-color: #fff;
+      position: relative;
+
+      .qytx {
+        position: absolute;
+        top: 20px;
+        left: -20px;
+      }
+
+      .desc {
+        width: 248px;
+        padding-right: 20px;
+        position: absolute;
+        top: 20px;
+        right: 0;
+        height: 204px;
+
+        .desc_item {
+          height: 184px;
+
+          li {
+            height: 37px;
+
+            &:nth-of-type(1) {
+              width: 128px;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+
+.title1,
+.title2 {
+  font-weight: 600;
+  text-align: center;
+  line-height: 48px;
+  opacity: .8;
+  height: 48px;
+  background-color: #fff;
+  margin: 0 auto;
+}
+
+.title1 {
+  width: 203px;
+  background: url(../images/index/title1.png) no-repeat center bottom;
+
+}
+
+.title2 {
+  width: 432px;
+  background: url(../images/index/title2.png) no-repeat center bottom;
+}
+
+//  /*max-width: 1200px:宽度在1200以下*/
+//  @media screen and (max-width: 1200px){
+//   .w{
+//     width: 1000px;
+//     margin: 0 auto;
+//     height: 300px;
+//     background-color: rgb(55, 226, 121);
 //   }
 // }
-.home{
-  color: aqua;
-  font-size: 30px;
-}
+//  /*max-width: 1200px:宽度在1200以下*/
+//  @media screen and (max-width: 992px){
+//   .w{
+//     width: 800px;
+//     margin: 0 auto;
+//     height: 300px;
+//     background-color: rgb(236, 18, 207);
+//   }
+// }
