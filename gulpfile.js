@@ -18,7 +18,7 @@ const config = {
 //注册压缩首页文件
 gulp.task('index', function () {
   return gulp.src('index.html')
-    .pipe(_$.htmlmin({ collapseWhitespace: true }))
+    .pipe(_$.htmlmin({ collapseWhitespace: true, removeComments: true }))
     .pipe(gulp.dest('dist'))
     .pipe(_$.connect.reload())
 });
@@ -35,14 +35,14 @@ gulp.task('images', function () {
     .pipe(_$.connect.reload())
 });
 //注册合并压缩css文件
-gulp.task('sass',function(){
+gulp.task('sass', function () {
   return gulp.src('styles/*.scss')
-  .pipe(sass())
-  .pipe(gulp.dest('dist/css'))
-  .pipe(_$.cleanCss({ compatibility: 'ie8' }))//压缩css文件
-  .pipe(_$.rename({ suffix: '.min' }))//重命名
-  .pipe(gulp.dest('dist/css'))
-  .pipe(_$.connect.reload())
+    .pipe(sass())
+    .pipe(gulp.dest('dist/css'))
+    .pipe(_$.cleanCss({ compatibility: 'ie8' }))//压缩css文件
+    .pipe(_$.rename({ suffix: '.min' }))//重命名
+    .pipe(gulp.dest('dist/css'))
+    .pipe(_$.connect.reload())
 })
 
 gulp.task('copy-css', function () {
@@ -77,7 +77,7 @@ gulp.task('uglify-js', function () {
 
 
 //gulp 3.9.1版本
-gulp.task('build', ['index', 'pages', 'images', 'sass','copy-css','copy-js','uglify-js'], function () {
+gulp.task('build', ['index', 'pages', 'images', 'sass', 'copy-css', 'copy-js', 'uglify-js'], function () {
   console.log('打包完成')
 });
 //gulp 4+ 需要调用gulp.series()将任务序列化

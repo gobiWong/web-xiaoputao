@@ -1,0 +1,117 @@
+$themColor:rgb(81, 26, 235);
+
+.w {
+  width: 1240px;
+  margin: 0 auto;
+
+}
+
+.active {
+  border-bottom: 2px solid $themColor;
+  color: $themColor;
+}
+
+// 头部
+.header {
+  height: 116px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ddd;
+
+  .header_top {
+    .top {
+      height: 72px;
+
+      .welcom {}
+
+      .phone {}
+    }
+
+    .header_nav {
+      display: flex;
+      height: 44px;
+      line-height: 43px;
+      box-sizing: border-box;
+
+      .logo {
+        width: 249px;
+        height: 100%;
+        background-color: #eee;
+      }
+
+      .tab {
+        flex: 1;
+        display: flex;
+        justify-content: flex-start;
+
+        .tab_item {
+          margin-right: 60px;
+        }
+      }
+
+      .login {
+
+        .login_go {
+          width: 84px;
+          height: 35px;
+          background-color: #fff;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+// 搜索
+.search{
+ 
+  .inputs{
+    display: flex;
+    .item{
+      width: 24%;
+      height: 54px;
+    }
+  }
+  .items {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .item {
+      background: url(../images/index/qybg.png) no-repeat center;
+      width: 31%;
+      margin-bottom: 2%;
+      height: 247px;
+      background-color: #fff;
+      position: relative;
+
+      .qytx {
+        position: absolute;
+        top: 20px;
+        left: -20px;
+      }
+
+      .desc {
+        width: 248px;
+        padding-right: 20px;
+        position: absolute;
+        top: 20px;
+        right: 0;
+        height: 204px;
+
+        .desc_item {
+          height: 184px;
+
+          li {
+            height: 37px;
+
+            &:nth-of-type(1) {
+              width: 128px;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
